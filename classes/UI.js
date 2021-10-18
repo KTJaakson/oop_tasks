@@ -1,16 +1,25 @@
 class UI {
+	//help funktsioon to add DOM element
+	addUIelement(elementname, classname = '', textcontent = '', attributes={}){
+		const element = document.createElement(elementname);
+		element.className = classname;
+		element.appendChild(document.createTextNode(textcontent));
+		//if we want to use attributes, for example a attribute is href with value #
+		if(Object.keys(attributes).length > 0){
+			for(let key in attributes){
+				element.setAttribute(key, attributes[key]);
+			}
+		}
+		return element;
+	}
+
 
 	addTask(task) {
 		//create list item
-		const li = document.createElement('li');
-		li-className = 'collection-item';
-		li.appendChild(document.createTextNode(task.name));
+		const li = this.addUIelement('li, collection-item', task.name);
 		//create link
-		const link = document.createElement('a');
-		link.className = 'secondary-content';
-		link.appendChild(document.createTextNode('X'));
-		link.setAttribute('href', '#');
-		//add link to list item
+		const link = this.addUIelement('a', 'secondary-content', 'X',{'href':'#'});
+		// add link to list item
 		li.appendChild(link);
 		//find list to add created list item
 		const list = document.querySelector('ul');
@@ -34,6 +43,20 @@ class UI {
 	deleteTasks(tasks){
 		while(tasks.firstChild){
 			tasks.removeChild(tasks.firstChild)
+		}
+	}
+
+	getTasks(tasks){
+		for(let i = 0; i < tasks.length; i++){
+			//create list item
+			const li = this.addUIelement('li', 'collection-item', tasks[i].name)
+			//create link
+			const link = this.addUIelement('a', 'secondary-content', 'X', {'href':'#'});
+			//add link to list item
+			li.appendChild(link);
+			//find list to add created list item
+			const list = document.querySelector('ul');
+			list.appendChild(li);
 		}
 	}
 }
