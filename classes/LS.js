@@ -33,6 +33,11 @@ class LS {
 		});
 		this.setData('tasks', tasks);
 	}
+
+	//delete all tasks from LS
+	deleteTasks(){
+		localStorage.clear();
+	}
 }
 
 function deleteTask(e){
